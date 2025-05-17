@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Converter</title>
+        <link rel="stylesheet" href="project.css"/>
+
+    </head>
+    <body>
+        <header>
+            <h1>🌍 Currency Converter & Travel Explorer</h1>
+            <nav>
+              <a href="home.html">Home</a>
+              <a href="about.html">About</a>
+              <a href="converter.html">Convert</a>
+            </nav>
+          </header>
+        
+          <main class="grid-container">
+            <section>
+              <h2>Currency Converter</h2>
+              <form id="converter-form">
+                <label for="amount">Amount:</label><br />
+                <input type="number" id="amount" name="amount" placeholder="Enter amount" required/>
+                <br/>
+                <br/>
+                <label for="from-currency">From:</label><br/>
+                <select id="from-currency" name="from-currency" required>
+                  <option value="EUR">EUR</option>
+                </select>
+                <br/>
+                <br/>
+                <label for="to-currency">To:</label><br />
+                <select id="to-currency" name="to-currency" required>
+                </select>
+                <br/>
+                <br/>
+                <button type="submit" class="cta-button">Convert</button>
+              </form>
+            </section>
+        
+            <section id="conversion-result">
+              <h2>Result</h2>
+              <p>Converted amount and country info will appear here.</p>
+            </section>
+          </main>
+
+    <script src="index.js"></script>
+        
+    </body>
+</html>
