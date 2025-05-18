@@ -8,8 +8,8 @@
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: white;
+    color: grey;
     padding: 0;
   }
   
@@ -135,4 +135,23 @@
 .cta-button:hover {
             background-color: #45a049;
         }
-  
+
+
+#voice-controls {
+            margin-top: 1rem;
+            margin: 1rem auto;
+            padding: 1rem;
+            border: 2px black;
+            border-radius: 10px;
+            background-color: beige;
+            max-width: 400px;
+          }
+          
+#voice-controls h3 {
+            margin-top: 0;
+          }
+
+#voice-controls button {
+            padding: 0.5rem 1rem;
+            margin-right: 0.5rem;
+          }
