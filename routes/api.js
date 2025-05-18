@@ -3,14 +3,12 @@ const router = express.Router();
 const supabase = require("../db/supabaseClient");
 const axios = require("axios");
 
-// GET: Fetch past conversions
 router.get("/conversions", async (req, res) => {
   const { data, error } = await supabase.from("conversions").select("*");
   if (error) return res.status(500).json({ error });
   res.json(data);
 });
 
-// POST: Convert and store
 router.post("/convert", async (req, res) => {
   const { amount, from, to } = req.body;
 
