@@ -6,9 +6,9 @@ const apiRoutes = require("./routes/api");
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname))); // Serve static files
+app.use(express.static(path.join(__dirname))); 
 
-app.use("/api", apiRoutes); // Your backend API
+app.use("/api", apiRoutes); 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
