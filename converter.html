@@ -2,7 +2,13 @@
     <head>
         <title>Converter</title>
         <link rel="stylesheet" href="project.css"/>
-
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
     </head>
     <body>
         <header>
@@ -40,9 +46,17 @@
             <section id="conversion-result">
               <h2>Result</h2>
               <p>Converted amount and country info will appear here.</p>
+              <div id="map" style="height: 300px; margin-top: 1rem;"></div>
             </section>
           </main>
 
+
+          <div id="voice-controls">
+            <h3> Voice Controls</h3>
+            <p>Try saying: <em>"Convert 50 to USD"</em></p>
+            <button id="startBtn"> Start Voice</button>
+            <button id="stopBtn"> Stop Voice</button>
+          </div>
     <script src="index.js"></script>
         
     </body>
