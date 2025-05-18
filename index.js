@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const toSelect = document.getElementById("to-currency");
+    toSelect = document.getElementById("to-currency");
   
     const apiKey = "5694d3fdc6a6e69555637f8214a1f444";
     const symbolsUrl = `https://data.fixer.io/api/symbols?access_key=${apiKey}`;
@@ -45,9 +45,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const countryRes = await fetch(`https://restcountries.com/v3.1/currency/${toCurrency.toLowerCase()}`);
             const countries = await countryRes.json();
-  
+            countries.sort((a, b) => b.population - a.population);
+
             let countryInfo = "";
-            countries.slice(0, 2).forEach(country => {
+            countries.slice(0, 1).forEach(country => {
               countryInfo += `
                 <div class="country">
                   <h3>${country.name.common}</h3>
@@ -64,7 +65,26 @@ document.addEventListener("DOMContentLoaded", async () => {
               <p><strong>${amount} EUR</strong> = <strong>${converted} ${toCurrency}</strong></p>
               <h3>Countries that use ${toCurrency}:</h3>
               <div class="country-info">${countryInfo}</div>
+              <div id="map" style="height: 300px; margin-top: 1rem;"></div>
             `;
+            setTimeout(() => {
+              const mapContainer = document.getElementById("map");
+              const topCountry = countries[0];
+              if (!mapContainer || !countries[0]?.latlng) return;
+    
+              const capitalLatLng = topCountry.capitalInfo?.latlng;
+    
+              const map = L.map("map").setView(capitalLatLng, 5);
+    
+              L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: '© OpenStreetMap contributors',
+              }).addTo(map);
+    
+              L.marker(capitalLatLng).addTo(map)
+                .bindPopup(`${topCountry.capital?.[0] || topCountry.name.common} (Capital of ${topCountry.name.common})`)
+                .openPopup();
+            }, 0);
+    
             return;
           }
         }
@@ -74,7 +94,37 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   });
-  
-  
-  
-  
+
+
+
+  if (annyang) {
+    const commands = {
+      'convert *amount to *currency': (amount, currency) => {
+        amount = amount.replace(/[^\d\.]/g, '');
+        document.getElementById('amount').value = amount;
+
+        currency = currency.toUpperCase();
+
+        const option = Array.from(toSelect.options).find(opt =>
+          opt.value === currency || opt.textContent.toUpperCase().includes(currency)
+        );
+
+        if (option) {
+          toSelect.value = option.value;
+          document.getElementById('converter-form').dispatchEvent(new Event('submit'));
+        } else {
+          alert(`Currency "${currency}" not found.`);
+        }
+      }
+    };
+
+    annyang.addCommands(commands);
+
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+
+    if (startBtn && stopBtn) {
+      startBtn.addEventListener('click', () => annyang.start());
+      stopBtn.addEventListener('click', () => annyang.abort());
+    }
+  }
